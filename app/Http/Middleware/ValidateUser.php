@@ -30,14 +30,19 @@ class ValidateUser
         $role = Auth::user()->role;
 
         if($role == "user"){
-            if($request->is('dashboard')){
+            if($request->is('/dashboard')){
                 return $next($request);
             }else{
                 return abort(403);
             }
-
         }else if($role == "admin"){
-            return redirect()->route('user.index');
+            if($request->is('/dashboard')){
+                return $next($request);
+            }else if($request->is('users/*')){
+                return $next($request);
+            }else{
+                return abort(403);
+            }
         }else if($role == "super"){
             return redirect()->route('user.index');
         }else{

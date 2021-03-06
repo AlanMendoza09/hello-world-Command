@@ -31,7 +31,6 @@
     </div>
     <div>
         <select name="role" id="">
-            <option value="guest">Guest</option>
             <option value="user">User</option>
             <option value="admin">Admin</option>
             <option value="super">Super Admin</option>

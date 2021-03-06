@@ -23,10 +23,15 @@ Route::get('/clase', function () {
 //Path de la ruta, 'NombreDelController@FuncionDentroDelController'
 Route::get('/prueba-controller', 'PruebaController@index');
 
-Route::resource('coins', 'CoinsController')->middleware(['validate_hour', 'validate_user']);
+Route::resource('coins', 'CoinsController');
+Route::resource('users', 'UsersController')->middleware(['validate_user']);
 
 Route::get('register', 'AuthController@register')->middleware(['validate_hour'])->name('auth.register');
 Route::post('register', 'AuthController@doRegister')->middleware(['validate_hour'])->name('auth.do-register');
 Route::get('login', 'AuthController@login')->middleware(['validate_hour'])->name('auth.login');
 Route::post('login', 'AuthController@doLogin')->middleware(['validate_hour'])->name('auth.do-login');
 Route::any('logout', 'AuthController@logout')->name('auth.logout');
+
+Route::get('/dashboard', function () {
+    return view('dashboard.dashboard');
+})->middleware(['validate_user'])->name('dashboard');

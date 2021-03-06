@@ -37,7 +37,7 @@ class AuthController extends Controller
     public function doLogin(Request $req) {
         $credentials = $req->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->route('coins.index');
+            return redirect()->route('dashboard');
         }
         return redirect()->back();
     }
