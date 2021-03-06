@@ -18,7 +18,7 @@ class ValidateHour
     public function handle(Request $request, Closure $next)
     {
         $date = Carbon::now('America/Mexico_city');
-        $dateBlock = Carbon::parse('2021-03-05 20:00:20', 'America/Mexico_city');
+        $dateBlock = Carbon::parse('2021-03-05 23:23:20', 'America/Mexico_city');
 
         if($date->gte($dateBlock)){
             //return abort(403);

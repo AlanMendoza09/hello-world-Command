@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ValidateUser
 {
@@ -16,12 +18,24 @@ class ValidateUser
      */
     public function handle(Request $request, Closure $next)
     {
-        $role = auth()->user()->role;
 
-        if($role == "guest"){
-            return redirect()->route('');
-        }else if($role == "user"){
-            return redirect()->route('dashboard');
+        if(Auth::user() == null){
+            if($request->is('/')){
+                return $next($request);
+            }else{
+                return redirect('register');
+            }
+        }
+
+        $role = Auth::user()->role;
+
+        if($role == "user"){
+            if($request->is('dashboard')){
+                return $next($request);
+            }else{
+                return abort(403);
+            }
+
         }else if($role == "admin"){
             return redirect()->route('user.index');
         }else if($role == "super"){

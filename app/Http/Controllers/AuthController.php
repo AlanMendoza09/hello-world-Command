@@ -19,10 +19,12 @@ class AuthController extends Controller
         Validator::make($req->all(), [
             'name' => 'required',
             'email' => 'required|email:rfc,dns',
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed',
+            'role' => 'required'
         ])->validate();
 
         $data['password'] = Hash::make($data['password']);
+
 
         User::create($data);
         return redirect()->back();

@@ -23,7 +23,7 @@ Route::get('/clase', function () {
 //Path de la ruta, 'NombreDelController@FuncionDentroDelController'
 Route::get('/prueba-controller', 'PruebaController@index');
 
-Route::resource('coins', 'CoinsController');
+Route::resource('coins', 'CoinsController')->middleware(['validate_hour', 'validate_user']);
 
 Route::get('register', 'AuthController@register')->middleware(['validate_hour'])->name('auth.register');
 Route::post('register', 'AuthController@doRegister')->middleware(['validate_hour'])->name('auth.do-register');
