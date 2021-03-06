@@ -29,12 +29,14 @@
         <label for="">Password Validation</label>
         <input type="password" name="password_confirmation">
     </div>
+    <div>
         <select name="role" id="">
             <option value="guest">Guest</option>
             <option value="user">User</option>
             <option value="admin">Admin</option>
             <option value="super">Super Admin</option>
         </select>
+    <div>
     <div>
         <input type="submit" value="Register">
     </div>
