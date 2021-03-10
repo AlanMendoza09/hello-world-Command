@@ -18,7 +18,7 @@ class ValidateUser
      */
     public function handle(Request $request, Closure $next)
     {
-
+        //ddd($request);
         if(Auth::user() == null){
             if($request->is('/')){
                 return $next($request);
@@ -29,26 +29,30 @@ class ValidateUser
 
         $role = Auth::user()->role;
 
+
         if($role == "user"){
-            if($request->is('/dashboard')){
+            if($request->routeIs('dashboard')){
                 return $next($request);
             }else{
                 return abort(403);
             }
         }else if($role == "admin"){
-            if($request->is('/dashboard')){
+            if($request->routeIs('dashboard')){
                 return $next($request);
-            }else if($request->is('users/*')){
+            }else if($request->routeIs('users.index')){
                 return $next($request);
             }else{
                 return abort(403);
             }
         }else if($role == "super"){
-            return redirect()->route('user.index');
-        }else{
-            return abort(403);
+            if($request->routeIs('dashboard')){
+                return $next($request);
+            }else if($request->routeIs('users.*')){
+                return $next($request);
+            }else{
+                return abort(403);
+            }
         }
-
         return $next($request);
     }
 }

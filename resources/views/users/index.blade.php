@@ -25,6 +25,7 @@
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->role }}</td>
+                @if ( auth()->user()->role == 'super' )
                 <td>
                     <form action="{{ route('users.destroy', ['user' => $item]) }}" method="post">
                         @csrf
@@ -32,6 +33,8 @@
                         <input type="submit" value="Delete">
                     </form>
                 </td>
+                @endif
+
             </tr>
         @endforeach
     </tbody>

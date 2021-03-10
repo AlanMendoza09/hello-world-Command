@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware(['validate_user']);
 Route::get('/clase', function () {
     return view('mi-clase');
 });
@@ -26,10 +26,10 @@ Route::get('/prueba-controller', 'PruebaController@index');
 Route::resource('coins', 'CoinsController');
 Route::resource('users', 'UsersController')->middleware(['validate_user']);
 
-Route::get('register', 'AuthController@register')->middleware(['validate_hour'])->name('auth.register');
-Route::post('register', 'AuthController@doRegister')->middleware(['validate_hour'])->name('auth.do-register');
-Route::get('login', 'AuthController@login')->middleware(['validate_hour'])->name('auth.login');
-Route::post('login', 'AuthController@doLogin')->middleware(['validate_hour'])->name('auth.do-login');
+Route::get('register', 'AuthController@register')->name('auth.register');
+Route::post('register', 'AuthController@doRegister')->name('auth.do-register');
+Route::get('login', 'AuthController@login')->name('auth.login');
+Route::post('login', 'AuthController@doLogin')->name('auth.do-login');
 Route::any('logout', 'AuthController@logout')->name('auth.logout');
 
 Route::get('/dashboard', function () {
