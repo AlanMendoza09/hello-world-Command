@@ -58,7 +58,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::find($id);
+        return view('auth.put', ['user' => $users]);
     }
 
     /**
@@ -83,5 +84,14 @@ class UsersController extends Controller
     {
         $user->delete();
         return redirect()->route('users.index');
+    }
+
+    public function upload(Request $req){
+        if($req->hasFile('image')){
+            $filename = $req->image->getClientOriginalName();
+            $req->image->storeAs('images', $filename, 'public');
+            Auth()->user()->update(['image'=>$filename]);
+        }
+        return redirect()->back();
     }
 }

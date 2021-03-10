@@ -16,6 +16,7 @@
             <th>name</th>
             <th>email</th>
             <th>role</th>
+            <th>View profile</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,9 @@
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->role }}</td>
+                @if ( auth()->user()->role == 'admin' || auth()->user()->role == 'super' )
+                <td><a href="{{route('users.edit', $item->id ) }}"> View</a></td>
+                @endif
                 @if ( auth()->user()->role == 'super' )
                 <td>
                     <form action="{{ route('users.destroy', ['user' => $item]) }}" method="post">
@@ -34,7 +38,6 @@
                     </form>
                 </td>
                 @endif
-
             </tr>
         @endforeach
     </tbody>

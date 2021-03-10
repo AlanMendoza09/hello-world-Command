@@ -35,3 +35,5 @@ Route::any('logout', 'AuthController@logout')->name('auth.logout');
 Route::get('/dashboard', function () {
     return view('dashboard.dashboard');
 })->middleware(['validate_user'])->name('dashboard');
+
+Route::post('/users','UsersController@upload');

@@ -41,6 +41,8 @@ class ValidateUser
                 return $next($request);
             }else if($request->routeIs('users.index')){
                 return $next($request);
+            }else if($request->routeIs('users.edit')){
+                return $next($request);
             }else{
                 return abort(403);
             }
